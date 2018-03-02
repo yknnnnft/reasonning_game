@@ -32,7 +32,7 @@ To solve the following reasoning game.
     B. Q1 and Q6  
     C. Q3 and Q10  
     D. Q5 and Q9  
-1. Choose the answer that is least chosen in all of the ten questions:
+1. Choose the answer that is least chosen in all of the ten questions:  
     A. C  
     B. B  
     C. A  
