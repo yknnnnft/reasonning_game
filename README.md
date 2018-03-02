@@ -7,7 +7,7 @@ To solve the following reasoning game.
     B. B  
     C. C  
     D. D
-1. The answer of Q5 is: 
+1. The answer of Q5 is:  
     A. C  
     B. D  
     C. A  
