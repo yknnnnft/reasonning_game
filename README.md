@@ -52,3 +52,32 @@ To solve the following reasoning game.
     B. 2  
     C. 4  
     D. 1
+    
+<details>
+<summary>Console out with answers</summary>
+[tester] test starts...<br/>
+[answer factory] initiliazation starts<br/> 
+[answer factory] initialization succeeded<br/>
+[tester] 10%(104858/1048575) completed...<br/>
+[tester] 15%(157287/1048575) completed...<br/>
+[tester] 20%(209715/1048575) completed...<br/>
+[tester] 25%(262144/1048575) completed...<br/>
+[tester] 30%(314573/1048575) completed...<br/>
+[tester] 35%(367002/1048575) completed...<br/>
+===========================<br/>
+[tester] succeed at: 402116th time try. Answer: [ 1.B 2.C 3.A 4.C 5.A 6.C 7.D 8.A 9.B 10.A ]<br/>
+===========================<br/>
+[tester] 40%(419430/1048575) completed...<br/>
+[tester] 45%(471859/1048575) completed...<br/>
+[tester] 50%(524288/1048575) completed...<br/>
+[tester] 55%(576717/1048575) completed...<br/>
+[tester] 60%(629145/1048575) completed...<br/>
+[tester] 65%(681574/1048575) completed...<br/>
+[tester] 70%(734003/1048575) completed...<br/>
+[tester] 75%(786432/1048575) completed...<br/>
+[tester] 80%(838861/1048575) completed...<br/>
+[tester] 85%(891289/1048575) completed...<br/>
+[tester] 90%(943718/1048575) completed...<br/>
+[tester] 95%(996147/1048575) completed...<br/>
+[tester] test is over.<br/>
+</details>
