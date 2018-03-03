@@ -5,15 +5,31 @@ import java.util.List;
 
 import puzzle.Puzzle;
 import puzzle.enums.Choice;
+import puzzle.enums.Question;
 
 public abstract class AbstractQuestion {
 
 	protected List<ChoiceContent> choices;
+	protected final Question label;
 	protected Puzzle puzzle;
 	
-	public AbstractQuestion(Puzzle puzzle) {
+	AbstractQuestion(Puzzle puzzle, Question label) {
 		this.puzzle = puzzle;
+		this.label = label;
+	}
+	
+	public boolean exec(Choice answer) {
+		setup();
 		choices = initChoices();
+		return test(answer);
+	}
+	
+	protected void setup() {
+		return;
+	}
+
+	public boolean test(Choice answer) {
+		return choices.get(answer.ordinal()).execTest();
 	}
 	
 	protected List<ChoiceContent> initChoices() {
@@ -34,9 +50,6 @@ public abstract class AbstractQuestion {
 	protected abstract ChoiceContent initChoiceC();
 	protected abstract ChoiceContent initChoiceD();
 
-	public boolean test(Choice answer) {
-		return choices.get(answer.ordinal()).test();
-	}
 
 	protected abstract class ChoiceContent {
 		
@@ -46,8 +59,17 @@ public abstract class AbstractQuestion {
 			this.label = label;
 		}
 
+		public boolean execTest() {
+			setupContent();
+			return test();
+		}
+		
 		protected abstract boolean test();
 
+		protected void setupContent() {
+			return;
+		}
+		
 		protected Choice getLabel() {
 			return label;
 		}

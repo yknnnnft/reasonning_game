@@ -4,72 +4,62 @@ import java.util.Map;
 
 import puzzle.Puzzle;
 import puzzle.enums.Choice;
+import puzzle.enums.Question;
 
 public class Question7 extends AbstractQuestion {
 
 	private Map<Choice, Integer> count;
-	public Question7(Puzzle puzzle) {
-		super(puzzle);
+	
+	Question7(Puzzle puzzle) {
+		super(puzzle, Question.Q7);
+	}
+	
+	protected void setup() {
 		count = puzzle.getAnswerCount();
 	}
 
-	private boolean testChoice(Choice choice) {
-		for (Choice c: Choice.values()) {
-			if (!count.containsKey(c)) {
-				count.put(c, 0);
-			}
-			if (c == choice) {
-				continue;
-			}
-			if (count.get(choice) >= count.get(c)) {
-				return false;
-			}
-		}
-		return true;
-	}
+	protected class ChoiceContentForQ7 extends ChoiceContent {
 
+		protected Choice choiceToCompare;
+		
+		public ChoiceContentForQ7(Choice label, Choice choiceToCompare) {
+			super(label);
+			this.choiceToCompare = choiceToCompare;
+		}
+
+		@Override
+		protected boolean test() {
+			for (Choice c: Choice.values()) {
+				if (c == choiceToCompare) {
+					continue;
+				}
+				if (count.get(choiceToCompare) >= count.get(c)) {
+					return false;
+				}
+			}
+			return true;
+		}
+		
+	}
+	
 	@Override
 	protected ChoiceContent initChoiceA() {
-		return new ChoiceContent(Choice.A) {
-			@Override
-			protected boolean test() {
-				return testChoice(label);
-			}
-			
-		};
+		return new ChoiceContentForQ7(Choice.A, Choice.C);
 	}
 
 	@Override
 	protected ChoiceContent initChoiceB() {
-		return new ChoiceContent(Choice.B) {
-			@Override
-			protected boolean test() {
-				return testChoice(label);
-			}
-			
-		};
+		return new ChoiceContentForQ7(Choice.B, Choice.B);
 	}
 
 	@Override
 	protected ChoiceContent initChoiceC() {
-		return new ChoiceContent(Choice.C) {
-			@Override
-			protected boolean test() {
-				return testChoice(label);
-			}
-			
-		};
+		return new ChoiceContentForQ7(Choice.C, Choice.A);
 	}
 
 	@Override
 	protected ChoiceContent initChoiceD() {
-		return new ChoiceContent(Choice.D) {
-			@Override
-			protected boolean test() {
-				return testChoice(label);
-			}
-			
-		};
+		return new ChoiceContentForQ7(Choice.D, Choice.D);
 	}
 
 }

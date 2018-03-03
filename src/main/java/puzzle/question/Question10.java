@@ -1,66 +1,54 @@
 package puzzle.question;
 
-import java.util.Arrays;
-import java.util.List;
-
 import puzzle.Puzzle;
 import puzzle.enums.Choice;
+import puzzle.enums.Question;
 
 public class Question10 extends AbstractQuestion {
 
-	private List<Integer> diffs = Arrays.asList(new Integer[] {3, 2, 4, 1});
 	private int diff;
-	public Question10(Puzzle puzzle) {
-		super(puzzle);
+	
+	Question10(Puzzle puzzle) {
+		super(puzzle, Question.Q10);
+	}
+	
+	protected void setup() {
 		diff = puzzle.getLimitCount()[1] - puzzle.getLimitCount()[0];
 	}
+	
+	protected class ChoiceContentForQ10 extends ChoiceContent {
 
-	private boolean testChoice(Choice choice) {
-		return diffs.get(choice.ordinal()) == diff;
+		protected int diffContent;
+		
+		public ChoiceContentForQ10(Choice label, int diffContent) {
+			super(label);
+			this.diffContent = diffContent;
+		}
+
+		@Override
+		protected boolean test() {
+			return diffContent == diff;
+		}
 	}
-
+	
 	@Override
 	protected ChoiceContent initChoiceA() {
-		return new ChoiceContent(Choice.A) {
-			@Override
-			protected boolean test() {
-				return testChoice(label);
-			}
-			
-		};
+		return new ChoiceContentForQ10(Choice.A, 3);
 	}
 
 	@Override
 	protected ChoiceContent initChoiceB() {
-		return new ChoiceContent(Choice.B) {
-			@Override
-			protected boolean test() {
-				return testChoice(label);
-			}
-			
-		};
+		return new ChoiceContentForQ10(Choice.B, 2);
 	}
 
 	@Override
 	protected ChoiceContent initChoiceC() {
-		return new ChoiceContent(Choice.C) {
-			@Override
-			protected boolean test() {
-				return testChoice(label);
-			}
-			
-		};
+		return new ChoiceContentForQ10(Choice.C, 4);
 	}
 
 	@Override
 	protected ChoiceContent initChoiceD() {
-		return new ChoiceContent(Choice.D) {
-			@Override
-			protected boolean test() {
-				return testChoice(label);
-			}
-			
-		};
+		return new ChoiceContentForQ10(Choice.D, 1);
 	}
 
 }

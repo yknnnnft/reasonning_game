@@ -1,65 +1,49 @@
 package puzzle.question;
 
-import java.util.Arrays;
-import java.util.List;
-
 import puzzle.Puzzle;
 import puzzle.enums.Choice;
+import puzzle.enums.Question;
 
 public class Question5 extends AbstractQuestion {
 
-	private List<Integer> questions = Arrays.asList(new Integer[] {7, 3, 8, 6});
-
-	public Question5(Puzzle puzzle) {
-		super(puzzle);
+	Question5(Puzzle puzzle) {
+		super(puzzle, Question.Q5);
 	}
 
-	private boolean testChoice(Choice choice) {
-		return puzzle.isAnswer(questions.get(choice.ordinal()), choice);
-	}
+	protected class ChoiceContentForQ5 extends ChoiceContent {
 
+		protected Question questionToCompare;
+		
+		public ChoiceContentForQ5(Choice label, Question questionToCompare) {
+			super(label);
+			this.questionToCompare = questionToCompare;
+		}
+
+		@Override
+		protected boolean test() {
+			return puzzle.isAnswer(questionToCompare, label);
+		}
+		
+	}
+	
 	@Override
 	protected ChoiceContent initChoiceA() {
-		return new ChoiceContent(Choice.A) {
-			@Override
-			protected boolean test() {
-				return testChoice(label);
-			}
-			
-		};
+		return new ChoiceContentForQ5(Choice.A, Question.Q8);
 	}
 
 	@Override
 	protected ChoiceContent initChoiceB() {
-		return new ChoiceContent(Choice.B) {
-			@Override
-			protected boolean test() {
-				return testChoice(label);
-			}
-			
-		};
+		return new ChoiceContentForQ5(Choice.B, Question.Q4);
 	}
 
 	@Override
 	protected ChoiceContent initChoiceC() {
-		return new ChoiceContent(Choice.C) {
-			@Override
-			protected boolean test() {
-				return testChoice(label);
-			}
-			
-		};
+		return new ChoiceContentForQ5(Choice.C, Question.Q9);
 	}
 
 	@Override
 	protected ChoiceContent initChoiceD() {
-		return new ChoiceContent(Choice.D) {
-			@Override
-			protected boolean test() {
-				return testChoice(label);
-			}
-			
-		};
+		return new ChoiceContentForQ5(Choice.D, Question.Q7);
 	}
 
 }

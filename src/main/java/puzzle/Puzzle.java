@@ -6,16 +6,17 @@ import java.util.List;
 import java.util.Map;
 
 import puzzle.enums.Choice;
-import puzzle.question.*;
+import puzzle.enums.Question;
+import puzzle.question.AbstractQuestion;
+import puzzle.question.QuestionListFactory;
 
 public class Puzzle {
-
+	
 	private List<AbstractQuestion> questions;
 	private List<Choice> answers;
 	private Map<Choice, Integer> answerCount;
 	
 	public Puzzle() {
-		questions = new ArrayList<AbstractQuestion>();
 		answers = new ArrayList<Choice>();
 		answerCount = new HashMap<Choice, Integer>();
 		for (Choice c: Choice.values()) {
@@ -24,16 +25,7 @@ public class Puzzle {
 	}
 	
 	public void initQuestions() {
-		questions.add(new Question1(this));
-		questions.add(new Question2(this));
-		questions.add(new Question3(this));
-		questions.add(new Question4(this));
-		questions.add(new Question5(this));
-		questions.add(new Question6(this));
-		questions.add(new Question7(this));
-		questions.add(new Question8(this));
-		questions.add(new Question9(this));
-		questions.add(new Question10(this));
+		questions = QuestionListFactory.getQuestions(this);
 	}
 
 	public void fillInAnswer(List<Choice> answers) {
@@ -41,23 +33,17 @@ public class Puzzle {
 		countAnswers();
 	}
 
-	public Choice getAnswerOfQuestion(int i) {
-		return answers.get(i);
+	public Choice getAnswerOfQuestion(Question q) {
+		return answers.get(q.ordinal());
 	}
 	
 	public boolean test() {
 		boolean result = true;
 		int questionIdx = 1;
 		while (result && questionIdx < questions.size()) {
-			result = questions.get(questionIdx).test(answers.get(questionIdx));
+			result = questions.get(questionIdx).exec(answers.get(questionIdx));
 			questionIdx++;
 		}
-//		if (!result) {
-//			System.out.println(printCurrAnswer() + 
-//					" failed at question[" + 
-//					(questionIdx) + 
-//					"]: " + answers.get(questionIdx - 1));
-//		}
 		return result;
 	}
 	
@@ -71,12 +57,12 @@ public class Puzzle {
 		return count;
 	}
 	
-	public boolean isAnswer(int i, Choice choice) {
-		return getAnswerOfQuestion(i) == choice;
+	public boolean isAnswer(Question q, Choice choice) {
+		return getAnswerOfQuestion(q) == choice;
 	}
 
-	public boolean isSameChoice(int i, int j) {
-		return getAnswerOfQuestion(i) == getAnswerOfQuestion(j);
+	public boolean isSameChoice(Question q1, Question q2) {
+		return getAnswerOfQuestion(q1) == getAnswerOfQuestion(q2);
 	}
 	
 	public void countAnswers() {

@@ -1,73 +1,56 @@
 package puzzle.question;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import puzzle.Puzzle;
 import puzzle.enums.Choice;
+import puzzle.enums.Question;
 
 public class Question6 extends AbstractQuestion {
 
-	private List<Integer[]> questions;
 	private Choice answerOfQuestion8;
-	public Question6(Puzzle puzzle) {
-		super(puzzle);
-		questions = new ArrayList<Integer[]>();
-		questions.add(new Integer[] {1, 3});
-		questions.add(new Integer[] {0, 5});
-		questions.add(new Integer[] {2, 9});
-		questions.add(new Integer[] {4, 8});
-		answerOfQuestion8 = puzzle.getAnswerOfQuestion(7);
+	
+	Question6(Puzzle puzzle) {
+		super(puzzle, Question.Q6);
+	}
+	
+	protected void setup() {
+		answerOfQuestion8 = puzzle.getAnswerOfQuestion(Question.Q8);
 	}
 
-	private boolean testChoice(Choice choice) {
-		Integer[] q = questions.get(choice.ordinal());
-		return answerOfQuestion8 == puzzle.getAnswerOfQuestion(q[0]) &&
-				answerOfQuestion8 == puzzle.getAnswerOfQuestion(q[1]);
-	}
+	protected class ChoiceContentForQ6 extends ChoiceContent {
 
+		protected Question[] questions;
+		
+		public ChoiceContentForQ6(Choice label, Question[] questions) {
+			super(label);
+			this.questions = questions;
+		}
+
+		@Override
+		protected boolean test() {
+			return answerOfQuestion8 == puzzle.getAnswerOfQuestion(questions[0]) &&
+					answerOfQuestion8 == puzzle.getAnswerOfQuestion(questions[1]);
+		}
+		
+	}
+	
 	@Override
 	protected ChoiceContent initChoiceA() {
-		return new ChoiceContent(Choice.A) {
-			@Override
-			protected boolean test() {
-				return testChoice(label);
-			}
-			
-		};
+		return new ChoiceContentForQ6(Choice.A, new Question[] {Question.Q2, Question.Q4});
 	}
 
 	@Override
 	protected ChoiceContent initChoiceB() {
-		return new ChoiceContent(Choice.B) {
-			@Override
-			protected boolean test() {
-				return testChoice(label);
-			}
-			
-		};
+		return new ChoiceContentForQ6(Choice.B, new Question[] {Question.Q1, Question.Q6});
 	}
 
 	@Override
 	protected ChoiceContent initChoiceC() {
-		return new ChoiceContent(Choice.C) {
-			@Override
-			protected boolean test() {
-				return testChoice(label);
-			}
-			
-		};
+		return new ChoiceContentForQ6(Choice.C, new Question[] {Question.Q3, Question.Q10});
 	}
 
 	@Override
 	protected ChoiceContent initChoiceD() {
-		return new ChoiceContent(Choice.D) {
-			@Override
-			protected boolean test() {
-				return testChoice(label);
-			}
-			
-		};
+		return new ChoiceContentForQ6(Choice.D, new Question[] {Question.Q5, Question.Q9});
 	}
 
 }
